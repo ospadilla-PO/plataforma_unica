@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interpretación de Grados Finales — MOD v2.1</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #FAFBFC;
+  --dark: #0F1726;
+  --green: #16A34A;
+  --green-light: #DCFCE7;
+  --green-text: #166534;
+  --green-border: #A7F3D0;
+  --amber: #D97706;
+  --amber-light: #FEF9C3;
+  --amber-text: #92400E;
+  --amber-border: #FDE68A;
+  --orange: #C2410C;
+  --orange-light: #FFEDD5;
+  --orange-text: #9A3412;
+  --orange-border: #FED7AA;
+  --red: #DC2626;
+  --red-light: #FEE2E2;
+  --red-text: #991B1B;
+  --red-border: #FECACA;
+  --gray: #6B7280;
+  --gray-light: #F3F4F6;
+  --gray-border: #E5E7EB;
+  --text: #111827;
+  --text2: #374151;
+  --text3: #6B7280;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); padding: 40px 20px; -webkit-font-smoothing: antialiased; }
+.page { max-width: 1100px; margin: 0 auto; }
+
+.header { text-align: center; margin-bottom: 40px; padding-bottom: 24px; border-bottom: 2px solid var(--dark); }
+.header-co { font-size: 12px; font-weight: 700; color: var(--green); letter-spacing: 2px; margin-bottom: 8px; }
+.header-title { font-size: 26px; font-weight: 800; color: var(--dark); margin-bottom: 6px; }
+.header-sub { font-size: 14px; color: var(--text3); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+.header-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; background: var(--dark); color: #fff; font-size: 11px; font-weight: 700; margin-top: 10px; }
+
+/* ── INTRO ── */
+.intro { max-width: 800px; margin: 0 auto 40px; text-align: center; }
+.intro-text { font-size: 15px; color: var(--text2); line-height: 1.7; }
+.intro-text strong { color: var(--text); }
+
+/* ── JOURNEY BAR ── */
+.journey { display: flex; align-items: center; justify-content: center; gap: 0; margin: 0 auto 48px; max-width: 800px; }
+.journey-step { text-align: center; flex: 1; position: relative; }
+.journey-dot { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: #fff; margin: 0 auto 6px; }
+.journey-step:nth-child(1) .journey-dot { background: var(--green); }
+.journey-step:nth-child(3) .journey-dot { background: #2563EB; }
+.journey-step:nth-child(5) .journey-dot { background: var(--amber); }
+.journey-step:nth-child(7) .journey-dot { background: var(--gray); }
+.journey-label { font-size: 10px; font-weight: 600; color: var(--text3); letter-spacing: 0.3px; }
+.journey-line { flex: 0 0 40px; height: 2px; background: var(--gray-border); margin-top: -16px; }
+
+/* ── GRADE CARD ── */
+.grade-section { margin-bottom: 48px; }
+
+.grade-card {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid;
+  background: #fff;
+}
+.grade-card.a { border-color: var(--green-border); }
+.grade-card.b { border-color: var(--amber-border); }
+.grade-card.c { border-color: var(--orange-border); }
+.grade-card.d { border-color: var(--red-border); }
+
+.grade-hero {
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.grade-card.a .grade-hero { background: linear-gradient(135deg, #0F2B1A, #166534); }
+.grade-card.b .grade-hero { background: linear-gradient(135deg, #422006, #854D0E); }
+.grade-card.c .grade-hero { background: linear-gradient(135deg, #431407, #9A3412); }
+.grade-card.d .grade-hero { background: linear-gradient(135deg, #450A0A, #991B1B); }
+
+.grade-letter {
+  font-size: 64px;
+  font-weight: 800;
+  color: #fff;
+  font-family: 'DM Mono', monospace;
+  line-height: 1;
+  width: 80px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.grade-hero-info { flex: 1; }
+.grade-hero-title { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+.grade-hero-range { font-size: 14px; color: rgba(255,255,255,0.7); font-family: 'DM Mono', monospace; }
+.grade-hero-meaning {
+  margin-top: 10px;
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 8px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.5;
+}
+
+.grade-body { padding: 24px 32px; }
+
+/* ── WHAT IT MEANS SECTION ── */
+.means-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.grade-card.a .means-title { color: var(--green); }
+.grade-card.b .means-title { color: var(--amber); }
+.grade-card.c .means-title { color: var(--orange); }
+.grade-card.d .means-title { color: var(--red); }
+
+.means-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.means-item {
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--gray-border);
+  background: var(--gray-light);
+}
+.means-item-icon { font-size: 20px; margin-bottom: 6px; }
+.means-item-label { font-size: 10px; font-weight: 700; color: var(--text3); letter-spacing: 0.5px; margin-bottom: 4px; }
+.means-item-text { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.4; }
+
+/* ── JOURNEY TRAIL ── */
+.trail { margin-bottom: 20px; }
+.trail-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text3); margin-bottom: 10px; }
+
+.trail-steps { display: flex; gap: 8px; }
+.trail-step {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+}
+.trail-step::after {
+  content: '→';
+  position: absolute;
+  right: -14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: var(--gray-border);
+  font-weight: 700;
+}
+.trail-step:last-child::after { display: none; }
+
+.trail-step.pass { background: var(--green-light); border: 1px solid var(--green-border); }
+.trail-step.warn { background: var(--amber-light); border: 1px solid var(--amber-border); }
+.trail-step.fail { background: var(--red-light); border: 1px solid var(--red-border); }
+.trail-step.neutral { background: var(--gray-light); border: 1px solid var(--gray-border); }
+
+.trail-step-label { font-size: 9px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 3px; }
+.trail-step.pass .trail-step-label { color: var(--green-text); }
+.trail-step.warn .trail-step-label { color: var(--amber-text); }
+.trail-step.fail .trail-step-label { color: var(--red-text); }
+.trail-step.neutral .trail-step-label { color: var(--text3); }
+
+.trail-step-val { font-size: 14px; font-weight: 800; font-family: 'DM Mono', monospace; }
+.trail-step.pass .trail-step-val { color: var(--green-text); }
+.trail-step.warn .trail-step-val { color: var(--amber-text); }
+.trail-step.fail .trail-step-val { color: var(--red-text); }
+.trail-step.neutral .trail-step-val { color: var(--text); }
+
+/* ── ACTION BOX ── */
+.action-box {
+  padding: 16px 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.grade-card.a .action-box { background: var(--green-light); border: 1px solid var(--green-border); }
+.grade-card.b .action-box { background: var(--amber-light); border: 1px solid var(--amber-border); }
+.grade-card.c .action-box { background: var(--orange-light); border: 1px solid var(--orange-border); }
+.grade-card.d .action-box { background: var(--red-light); border: 1px solid var(--red-border); }
+
+.action-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+.action-content { flex: 1; }
+.action-title { font-size: 14px; font-weight: 800; margin-bottom: 4px; }
+.grade-card.a .action-title { color: var(--green-text); }
+.grade-card.b .action-title { color: var(--amber-text); }
+.grade-card.c .action-title { color: var(--orange-text); }
+.grade-card.d .action-title { color: var(--red-text); }
+.action-text { font-size: 13px; color: var(--text2); line-height: 1.5; }
+
+/* ── PROFILE RIBBON ── */
+.profile-ribbon {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.profile-tag {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.profile-tag.stable { background: #DBEAFE; color: #1E40AF; }
+.profile-tag.risk { background: #FEF3C7; color: #92400E; }
+.profile-tag.danger { background: #FEE2E2; color: #991B1B; }
+.profile-tag.info { background: #F3F4F6; color: #374151; }
+
+/* ── FOOTER ── */
+.footer { margin-top: 48px; padding-top: 16px; border-top: 2px solid var(--dark); display: flex; justify-content: space-between; font-size: 11px; color: var(--text3); }
+
+@media (max-width: 768px) {
+  .means-grid { grid-template-columns: 1fr; }
+  .trail-steps { flex-direction: column; }
+  .trail-step::after { display: none; }
+  .grade-hero { flex-direction: column; text-align: center; }
+}
+
+@media print {
+  body { padding: 20px; }
+  .grade-section { page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div class="header-co">PODEMOS PROGRESAR</div>
+  <div class="header-title">¿Qué significa ser A, B, C o D después de todas las evaluaciones?</div>
+  <div class="header-sub">Interpretación del grado final de un prospecto después de pasar por el IPP pre-buró, la evaluación CDC post-buró, y la visita única en campo.</div>
+  <div class="header-badge">ALINEADO A DOCUMENTO MAESTRO v2.1</div>
+</div>
+
+<div class="intro">
+  <div class="intro-text">
+    Cuando un prospecto llega al final del proceso y tiene un grado, ese grado <strong>ya fue validado por 3 fuentes distintas</strong>: los datos que declaró, su historial crediticio real, y lo que se observó en persona. Por eso el grado final tiene mucho más peso que el grado inicial.
+  </div>
+</div>
+
+<div class="journey">
+  <div class="journey-step"><div class="journey-dot">1</div><div class="journey-label">IPP Pre-Buró</div></div>
+  <div class="journey-line"></div>
+  <div class="journey-step"><div class="journey-dot">2</div><div class="journey-label">Post-Buró CDC</div></div>
+  <div class="journey-line"></div>
+  <div class="journey-step"><div class="journey-dot">3</div><div class="journey-label">Visita Única</div></div>
+  <div class="journey-line"></div>
+  <div class="journey-step"><div class="journey-dot">4</div><div class="journey-label">Decisión CS</div></div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     GRADO A
+═══════════════════════════════════════ -->
+<div class="grade-section">
+  <div class="grade-card a">
+    <div class="grade-hero">
+      <div class="grade-letter">A</div>
+      <div class="grade-hero-info">
+        <div class="grade-hero-title">Perfil Excelente — Confianza Alta</div>
+        <div class="grade-hero-range">Score final ≥ 80 puntos</div>
+        <div class="grade-hero-meaning">
+          Esta persona pasó las 3 evaluaciones con resultados sobresalientes. Sus datos declarados son sólidos, su historial crediticio está limpio, y la validación en campo confirmó todo.
+        </div>
+      </div>
+    </div>
+    <div class="grade-body">
+      <div class="means-title">QUÉ SIGNIFICA DESPUÉS DE CADA EVALUACIÓN</div>
+      <div class="means-grid">
+        <div class="means-item">
+          <div class="means-item-icon">📋</div>
+          <div class="means-item-label">DESPUÉS DEL IPP</div>
+          <div class="means-item-text">Domicilio estable (>6 años, propia), INE coincide, negocio consolidado (>6 años, fijo), buen ingreso, experiencia grupal.</div>
+        </div>
+        <div class="means-item">
+          <div class="means-item-icon">🏦</div>
+          <div class="means-item-label">DESPUÉS DEL BURÓ</div>
+          <div class="means-item-text">Sin fraude, sin demandas, sin deudas graves. Historial limpio o con deudas menores ya resueltas. Pocas consultas al buró.</div>
+        </div>
+        <div class="means-item">
+          <div class="means-item-icon">👥</div>
+          <div class="means-item-label">DESPUÉS DE LA VISITA</div>
+          <div class="means-item-text">Asistió a la sesión, respondió por sí misma, se conoce con el grupo, su negocio es real, entiende el crédito solidario.</div>
+        </div>
+      </div>
+
+      <div class="trail-title">CAMINO TÍPICO DE UN GRADO A</div>
+      <div class="trail-steps">
+        <div class="trail-step pass"><div class="trail-step-label">IPP PRE-BURÓ</div><div class="trail-step-val">85 → A</div></div>
+        <div class="trail-step pass"><div class="trail-step-label">POST-BURÓ</div><div class="trail-step-val">85 → A</div></div>
+        <div class="trail-step pass"><div class="trail-step-label">POST-VISITA</div><div class="trail-step-val">85 → A</div></div>
+        <div class="trail-step pass"><div class="trail-step-label">DECISIÓN</div><div class="trail-step-val">✅ Aprobar</div></div>
+      </div>
+
+      <div class="action-box">
+        <div class="action-icon">✅</div>
+        <div class="action-content">
+          <div class="action-title">Acción: APROBAR con confianza</div>
+          <div class="action-text">Este prospecto es el perfil ideal para crédito grupal. Tiene arraigo, ingreso demostrable, historial limpio y compromiso verificado en persona. Se puede otorgar el monto solicitado sin condiciones adicionales.</div>
+        </div>
+      </div>
+
+      <div class="profile-ribbon">
+        <span class="profile-tag stable">🏠 Domicilio estable</span>
+        <span class="profile-tag stable">💼 Negocio consolidado</span>
+        <span class="profile-tag stable">🏦 Buró limpio</span>
+        <span class="profile-tag stable">👥 Validada en campo</span>
+        <span class="profile-tag info">📊 Score ≥ 80</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     GRADO B
+═══════════════════════════════════════ -->
+<div class="grade-section">
+  <div class="grade-card b">
+    <div class="grade-hero">
+      <div class="grade-letter">B</div>
+      <div class="grade-hero-info">
+        <div class="grade-hero-title">Perfil Bueno — Confianza Moderada</div>
+        <div class="grade-hero-range">Score final 65 — 79 puntos</div>
+        <div class="grade-hero-meaning">
+          Esta persona cumple los requisitos en general, pero tiene áreas que no son óptimas. Puede ser un domicilio relativamente nuevo, un negocio con pocos años, o alguna señal menor en el buró que no fue suficiente para degradar más.
+        </div>
+      </div>
+    </div>
+    <div class="grade-body">
+      <div class="means-title">QUÉ SIGNIFICA DESPUÉS DE CADA EVALUACIÓN</div>
+      <div class="means-grid">
+        <div class="means-item">
+          <div class="means-item-icon">📋</div>
+          <div class="means-item-label">DESPUÉS DEL IPP</div>
+          <div class="means-item-text">Perfil sólido pero con algunas áreas medias: quizá domicilio de 1-3 años, negocio de 4-6 años, o ingreso entre $3-5K semanales. Nada alarmante pero no óptimo en todo.</div>
+        </div>
+        <div class="means-item">
+          <div class="means-item-icon">🏦</div>
+          <div class="means-item-label">DESPUÉS DEL BURÓ</div>
+          <div class="means-item-text">Sin fraude ni deudas graves. Puede tener algunas cuentas abiertas pero sin atrasos significativos. Si venía de A y bajó a B, fue por Capa C (1 degradación por atrasos o consultas).</div>
+        </div>
+        <div class="means-item">
+          <div class="means-item-icon">👥</div>
+          <div class="means-item-label">DESPUÉS DE LA VISITA</div>
+          <div class="means-item-text">La validación en campo fue mayormente positiva. Quizá hubo algún hallazgo menor (una pregunta con "Parcial") pero nada que cambie sustancialmente el perfil.</div>
+        </div>
+      </div>
+
+      <div class="trail-title">CAMINOS TÍPICOS DE UN GRADO B</div>
+      <div class="trail-steps">
+        <div class="trail-step pass"><div class="trail-step-label">IPP PRE-BURÓ</div><div class="trail-step-val">78 → B</div></div>
+        <div class="trail-step pass"><div class="trail-step-label">POST-BURÓ</div><div class="trail-step-val">78 → B</div></div>
+        <div class="trail-step pass"><div class="trail-step-label">POST-VISITA</div><div class="trail-step-val">73 → B</div></div>
+        <div class="trail-step pass"><div class="trail-step-label">DECISIÓN</div><div class="trail-step-val">✅ Aprobar</div></div>
+      </div>
+      <div class="trail-steps" style="margin-top:8px">
+        <div class="trail-step pass"><div class="trail-step-label">IPP PRE-BURÓ</div><div class="trail-step-val">88 → A</div></div>
+        <div class="trail-step warn"><div class="trail-step-label">POST-BURÓ</div><div class="trail-step-val">79 → B ↓</div></div>
+        <div class="trail-step pass"><div class="trail-step-label">POST-VISITA</div><div class="trail-step-val">72 → B</div></div>
+        <div class="trail-step pass"><div class="trail-step-label">DECISIÓN</div><div class="trail-step-val">✅ Aprobar</div></div>
+      </div>
+
+      <div class="action-box" style="margin-top:16px">
+        <div class="action-icon">✅</div>
+        <div class="action-content">
+          <div class="action-title">Acción: APROBAR con seguimiento</div>
+          <div class="action-text">Este prospecto es elegible para crédito. Se recomienda seguimiento en las primeras semanas para confirmar puntualidad. Si llegó a B por degradación post-buró, revisar las cuentas específicas que activaron la Capa C.</div>
+        </div>
+      </div>
+
+      <div class="profile-ribbon">
+        <span class="profile-tag stable">🏠 Domicilio aceptable</span>
+        <span class="profile-tag risk">💼 Negocio en desarrollo</span>
+        <span class="profile-tag stable">🏦 Buró sin hallazgos graves</span>
+        <span class="profile-tag stable">👥 Validada en campo</span>
+        <span class="profile-tag info">📊 Score 65-79</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     GRADO C
+═══════════════════════════════════════ -->
+<div class="grade-section">
+  <div class="grade-card c">
+    <div class="grade-hero">
+      <div class="grade-letter">C</div>
+      <div class="grade-hero-info">
+        <div class="grade-hero-title">Perfil Aceptable con Reservas — Requiere Revisión</div>
+        <div class="grade-hero-range">Score final 50 — 64 puntos</div>
+        <div class="grade-hero-meaning">
+          Esta persona cumple los requisitos mínimos pero tiene señales de alerta en una o más áreas. Llegó a C porque alguna evaluación reveló debilidades: domicilio inestable, negocio informal, historial crediticio con atrasos, o hallazgos en la visita.
+        </div>
+      </div>
+    </div>
+    <div class="grade-body">
+      <div class="means-title">QUÉ SIGNIFICA DESPUÉS DE CADA EVALUACIÓN</div>
+      <div class="means-grid">
+        <div class="means-item">
+          <div class="means-item-icon">📋</div>
+          <div class="means-item-label">DESPUÉS DEL IPP</div>
+          <div class="means-item-text">Varias áreas débiles: domicilio rentado y reciente, negocio de pocos años o ambulante, ingresos bajos, y/o sin experiencia grupal. Los penalizadores pueden haber restado puntos.</div>
+        </div>
+        <div class="means-item">
+          <div class="means-item-icon">🏦</div>
+          <div class="means-item-label">DESPUÉS DEL BURÓ</div>
+          <div class="means-item-text">Puede haber llegado a C por degradación: si era B y se activó C1 o C2 (3+ atrasos o 6+ consultas al buró). No tiene fraude ni deuda grave, pero su historial muestra patrones preocupantes.</div>
+        </div>
+        <div class="means-item">
+          <div class="means-item-icon">👥</div>
+          <div class="means-item-label">DESPUÉS DE LA VISITA</div>
+          <div class="means-item-text">Puede haber hallazgos parciales: alguien del grupo no la conoce bien, su negocio no es exactamente como lo describió, o tuvo dificultad para explicar el crédito solidario.</div>
+        </div>
+      </div>
+
+      <div class="trail-title">CAMINOS TÍPICOS DE UN GRADO C</div>
+      <div class="trail-steps">
+        <div class="trail-step warn"><div class="trail-step-label">IPP PRE-BURÓ</div><div class="trail-step-val">62 → C</div></div>
+        <div class="trail-step warn"><div class="trail-step-label">POST-BURÓ</div><div class="trail-step-val">62 → C</div></div>
+        <div class="trail-step warn"><div class="trail-step-label">POST-VISITA</div><div class="trail-step-val">55 → C</div></div>
+        <div class="trail-step neutral"><div class="trail-step-label">DECISIÓN</div><div class="trail-step-val">⚠ Revisar</div></div>
+      </div>
+      <div class="trail-steps" style="margin-top:8px">
+        <div class="trail-step pass"><div class="trail-step-label">IPP PRE-BURÓ</div><div class="trail-step-val">78 → B</div></div>
+        <div class="trail-step warn"><div class="trail-step-label">POST-BURÓ</div><div class="trail-step-val">64 → C ↓</div></div>
+        <div class="trail-step warn"><div class="trail-step-label">POST-VISITA</div><div class="trail-step-val">52 → C</div></div>
+        <div class="trail-step neutral"><div class="trail-step-label">DECISIÓN</div><div class="trail-step-val">⚠ Revisar</div></div>
+      </div>
+
+      <div class="action-box" style="margin-top:16px">
+        <div class="action-icon">⚠️</div>
+        <div class="action-content">
+          <div class="action-title">Acción: REVISAR manualmente antes de decidir</div>
+          <div class="action-text">No aprobar automáticamente. El Consejero debe revisar qué causó el grado C: ¿fue por el perfil socioeconómico, por el buró, o por la visita? Si es por buró y las deudas son menores o están en sectores excluidos, podría aprobarse con condiciones (monto menor, seguimiento semanal). Si es por la visita, verificar las alertas del CE.</div>
+        </div>
+      </div>
+
+      <div class="profile-ribbon">
+        <span class="profile-tag risk">🏠 Domicilio inestable o reciente</span>
+        <span class="profile-tag risk">💼 Negocio informal</span>
+        <span class="profile-tag risk">🏦 Señales en buró</span>
+        <span class="profile-tag risk">👥 Hallazgos parciales en visita</span>
+        <span class="profile-tag info">📊 Score 50-64</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     GRADO D
+═══════════════════════════════════════ -->
+<div class="grade-section">
+  <div class="grade-card d">
+    <div class="grade-hero">
+      <div class="grade-letter">D</div>
+      <div class="grade-hero-info">
+        <div class="grade-hero-title">Perfil Insuficiente — Riesgo Alto</div>
+        <div class="grade-hero-range">Score final < 50 puntos</div>
+        <div class="grade-hero-meaning">
+          Esta persona no cumple los requisitos mínimos para el crédito. Puede haber llegado a D desde el IPP (perfil muy débil), por el buró (fraude, deuda grave, o múltiples degradaciones), o por la visita (indicadores de fraude o penalizaciones severas).
+        </div>
+      </div>
+    </div>
+    <div class="grade-body">
+      <div class="means-title">LAS 4 FORMAS DE LLEGAR A GRADO D</div>
+      <div class="means-grid" style="grid-template-columns: repeat(2, 1fr);">
+        <div class="means-item" style="border-color:#FECACA; background:#FFF5F5;">
+          <div class="means-item-icon">📋</div>
+          <div class="means-item-label">D POR IPP (perfil socioeconómico débil)</div>
+          <div class="means-item-text">Domicilio rentado y reciente, negocio recién abierto o ambulante, ingreso muy bajo, sin experiencia grupal, y penalizadores financieros activos. Score base ya era < 50.</div>
+        </div>
+        <div class="means-item" style="border-color:#FECACA; background:#FFF5F5;">
+          <div class="means-item-icon">🚫</div>
+          <div class="means-item-label">D POR CAPA A (fraude/demanda)</div>
+          <div class="means-item-text">El buró reveló fraude (FD), demanda judicial (SG), o mora causada (IM). Rechazo inmediato sin importar el score. Estos son los casos más graves.</div>
+        </div>
+        <div class="means-item" style="border-color:#FECACA; background:#FFF5F5;">
+          <div class="means-item-icon">💰</div>
+          <div class="means-item-label">D POR CAPA B (deuda grave)</div>
+          <div class="means-item-text">Tiene cuentas con saldo vencido ≥ $7,000 o claves UP/PC/LO con saldo ≥ $1,500 en los últimos 12 meses. La deuda es real y significativa.</div>
+        </div>
+        <div class="means-item" style="border-color:#FECACA; background:#FFF5F5;">
+          <div class="means-item-icon">📉</div>
+          <div class="means-item-label">D POR DEGRADACIÓN ACUMULADA</div>
+          <div class="means-item-text">Empezó como B, la Capa C lo degradó 2 niveles (3+ atrasos Y 6+ consultas). O empezó como C y una degradación lo bajó a D. La visita puede haberlo bajado aún más.</div>
+        </div>
+      </div>
+
+      <div class="trail-title">CAMINOS TÍPICOS DE UN GRADO D</div>
+      <div class="trail-steps">
+        <div class="trail-step fail"><div class="trail-step-label">IPP PRE-BURÓ</div><div class="trail-step-val">45 → D</div></div>
+        <div class="trail-step fail"><div class="trail-step-label">POST-BURÓ</div><div class="trail-step-val">45 → D</div></div>
+        <div class="trail-step fail"><div class="trail-step-label">POST-VISITA</div><div class="trail-step-val">21 → D</div></div>
+        <div class="trail-step fail"><div class="trail-step-label">DECISIÓN</div><div class="trail-step-val">🚫 No aprobar</div></div>
+      </div>
+      <div class="trail-steps" style="margin-top:8px">
+        <div class="trail-step pass"><div class="trail-step-label">IPP PRE-BURÓ</div><div class="trail-step-val">78 → B</div></div>
+        <div class="trail-step fail"><div class="trail-step-label">POST-BURÓ</div><div class="trail-step-val">0 → D ↓↓</div></div>
+        <div class="trail-step fail"><div class="trail-step-label">POST-VISITA</div><div class="trail-step-val">0 → D</div></div>
+        <div class="trail-step fail"><div class="trail-step-label">DECISIÓN</div><div class="trail-step-val">🚫 No aprobar</div></div>
+      </div>
+      <div class="trail-steps" style="margin-top:8px">
+        <div class="trail-step pass"><div class="trail-step-label">IPP PRE-BURÓ</div><div class="trail-step-val">72 → B</div></div>
+        <div class="trail-step fail"><div class="trail-step-label">POST-BURÓ</div><div class="trail-step-val">49 → D ↓↓</div></div>
+        <div class="trail-step fail"><div class="trail-step-label">POST-VISITA</div><div class="trail-step-val">21 → D</div></div>
+        <div class="trail-step fail"><div class="trail-step-label">DECISIÓN</div><div class="trail-step-val">🚫 No aprobar</div></div>
+      </div>
+
+      <div class="action-box" style="margin-top:16px">
+        <div class="action-icon">🚫</div>
+        <div class="action-content">
+          <div class="action-title">Acción: NO APROBAR — pero comunicar con respeto</div>
+          <div class="action-text">El crédito no procede en este momento. Es importante que la emprendedora entienda que NO es un rechazo personal ni permanente. Puede mejorar su perfil: estabilizar su domicilio, formalizar su negocio, resolver deudas pendientes en buró, y volver a aplicar. Si llegó a D por Capa A (fraude), la situación es diferente y debe revisarse caso por caso.</div>
+        </div>
+      </div>
+
+      <div class="profile-ribbon">
+        <span class="profile-tag danger">🏠 Domicilio inestable</span>
+        <span class="profile-tag danger">💼 Negocio informal o inexistente</span>
+        <span class="profile-tag danger">🏦 Hallazgos graves en buró</span>
+        <span class="profile-tag danger">👥 Alertas en visita</span>
+        <span class="profile-tag info">📊 Score < 50</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Podemos Progresar · Área de Producto · Osvaldo Padilla PO</span>
+  <span>Modelo de Originación Digital v1 · Documento Maestro v2.1 · Marzo 2026</span>
+</div>
+
+</div>
+</body>
+</html>

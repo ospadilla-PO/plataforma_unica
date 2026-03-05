@@ -431,6 +431,48 @@ body {
   75% { transform: translate(8px, -4px) scale(1.1); opacity: 0.6; }
 }
 
+/* ═══ RESOURCE LINK ═══ */
+.resource-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 24px;
+  padding: 14px 20px;
+  border-radius: var(--r-sm);
+  border: 1px dashed rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.03);
+  text-decoration: none;
+  transition: all 0.25s;
+  cursor: pointer;
+}
+.resource-link:hover {
+  border-color: var(--green2);
+  background: rgba(34,197,94,0.08);
+}
+.resource-link-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.resource-link-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text3);
+  transition: color 0.2s;
+}
+.resource-link:hover .resource-link-text {
+  color: var(--green2);
+}
+.resource-link-arrow {
+  font-size: 14px;
+  color: var(--text3);
+  transition: transform 0.2s, color 0.2s;
+}
+.resource-link:hover .resource-link-arrow {
+  transform: translateX(4px);
+  color: var(--green2);
+}
+
 /* ═══ RESPONSIVE ═══ */
 @media (max-width: 380px) {
   .welcome-title { font-size: 24px; }
@@ -534,6 +576,12 @@ body {
           <div class="role-arrow">→</div>
         </div>
       </div>
+
+      <a class="resource-link" href="https://ospadilla-po.github.io/ipp-inicio/grados.html" target="_blank" rel="noopener">
+        <span class="resource-link-icon">📖</span>
+        <span class="resource-link-text">¿Qué significan los grados A, B, C y D?</span>
+        <span class="resource-link-arrow">→</span>
+      </a>
     </div>
 
     <div class="app-footer">
@@ -562,6 +610,12 @@ body {
       <div class="tool-cards" id="tool-cards">
         <!-- Populated by JS -->
       </div>
+
+      <a class="resource-link" href="https://ospadilla-po.github.io/ipp-inicio/grados.html" target="_blank" rel="noopener" style="margin-top:20px;">
+        <span class="resource-link-icon">📖</span>
+        <span class="resource-link-text">¿Qué significan los grados A, B, C y D?</span>
+        <span class="resource-link-arrow">→</span>
+      </a>
     </div>
 
     <div class="app-footer">
